@@ -1,0 +1,7 @@
+main.c:71:5:main	64	static
+main.c:159:6:SystemClock_Config	88	static
+main.c:203:13:MX_I2C1_Init	8	static
+main.c:237:13:MX_GPIO_Init	48	static
+main.c:262:10:ReadPCTTemperature	32	static
+main.c:298:6:BlinkLED	24	static
+main.c:313:6:Error_Handler	4	static
