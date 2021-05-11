@@ -7,6 +7,51 @@
 </head>
 
 <body>
+  <h1>Dashboard</h1>
+  <h4>Date: <span id="date"></span></h4>
+  <div class="chart-container" style="position: relative; width:75vw; margin: auto;">
+    <canvas id="tempChart"></canvas>
+  </div>
+  <div class="chart-container" style="position: relative; width:75vw; margin: auto;">
+    <canvas id="pressChart"></canvas>
+  </div>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script type="text/javascript" src="chart.js"></script>
+  
+</body>
+<style>
+  h1 {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+  }
+
+  h4 {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+  }
+
+  p {
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+  }
+</style>
+
+</html>
+
+<!-- view rawindex.html hosted with ❤ by GitHub -->
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Temperature Plot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
   <h1>Temperature Graph</h1>
   <h4>Date: <span id="date"></span></h4>
   <div class="chart-container" style="position: relative; width:75vw; margin: auto;">
@@ -47,7 +92,7 @@
     });
 
     socket.on('temp', function(data) { //As a temp data is received
-      console.log(data.temp);
+      console.log(data.pitch);
       document.getElementById('date').innerHTML = data.date; //update the date
       if (chart.data.labels.length != 15) { //If we have less than 15 data points in the graph
         chart.data.labels.push(data.time); //Add time in x-asix
@@ -84,4 +129,4 @@
 </style>
 
 </html>
-<!-- view rawindex.html hosted with ❤ by GitHub -->
+view rawindex.html hosted with ❤ by GitHub -->
