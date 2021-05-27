@@ -61,14 +61,6 @@ var chartLat = new Chart(latChart, latChartConfig);
 socket.on('connect', () => { console.log("connected_GUI") })
 
 
-// socket.on('temperature', (data) => { //As a temp data is received
-//     chartTemp.data.datasets.forEach((dataset) => {
-//         dataset.data.shift(); //Remove first temp data
-//         dataset.data.push(data['temp']); //Insert latest temp data
-//     });
-//     chartTemp.update(); //Update the graph.
-// });
-
 socket.on('temperature', (data) => { //As a temp data is received
     console.log(data)
     console.log("above is data")
@@ -92,15 +84,11 @@ socket.on('temperature', (data) => { //As a temp data is received
     });
     chartHeight.update(); //Update the graph.
 
-    // document.getElementById('date').innerHTML = data.date; //update the date
-
     chartLong.data.datasets.forEach((dataset) => {
         dataset.data.shift(); //Remove first temp data
         dataset.data.push(data.Longitude); //Insert latest temp data
     });
     chartLong.update(); //Update the graph.
-
-    // document.getElementById('date').innerHTML = data.date; //update the date
 
     chartLat.data.datasets.forEach((dataset) => {
         dataset.data.shift(); //Remove first temp data
@@ -114,26 +102,5 @@ socket.on('temperature', (data) => { //As a temp data is received
 
     document.getElementById('date').innerHTML = date; //update the date
 
-    // chartHeight.data.datasets.forEach((dataset) => {
-    //     dataset.data.shift(); //Remove first temp data
-    //     dataset.data.push(data['Height']); //Insert latest temp data
-    // });
 
-    // chartHeight.update(); //Update the graph.
 });
-
-// document.getElementById('date').innerHTML = data.date; //update the date
-//     if (chartHeight.data.labels.length != 15) { //If we have less than 15 data points in the graph
-//         chartHeight.data.labels.push(data.time); //Add time in x-asix
-//         chartHeight.data.datasets.forEach((dataset) => {
-//             dataset.data.push(data['Height']); //Add temp in y-axis
-//         });
-//     } else { //If there are already 15 data points in the graph.
-//         chartHeight.data.labels.shift(); //Remove first time data
-//         chartHeight.data.labels.push(data.time); //Insert latest time data
-//         chartHeight.data.datasets.forEach((dataset) => {
-//             dataset.data.shift(); //Remove first temp data
-//             dataset.data.push(data['Height']); //Insert latest temp data
-//         });
-//     }
-//     chartHeight.update(); //Update the graph.
