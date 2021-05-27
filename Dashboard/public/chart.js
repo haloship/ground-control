@@ -1,46 +1,24 @@
 var socket = io.connect('http://localhost:4000'); //connect to server
 
-var tempChart = document.getElementById('tempChart').getContext('2d');
-var chartTemp = new Chart(tempChart, {
+
+
+const chartConfig = {
     // The type of chart we want to create
     type: 'line',
 
     // The data for our dataset
     data: {
-        labels: [],
-        datasets: [{
-            label: "Temperature",
-            borderColor: "#FF5733",
-            data: [],
-            fill: false,
-            pointStyle: 'circle',
-            backgroundColor: '#3498DB',
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            lineTension: 0,
-        }]
-    },
-    // Configuration options go here
-    options: {}
-
-});
-
-var pressChart = document.getElementById('pressChart').getContext('2d');
-var chartPressure = new Chart(pressChart, {
-    // The type of chart we want to create
-    type: 'line',
-
-    // The data for our dataset
-    data: {
-        labels: [],
+        labels: [...Array(15).keys()].map(function (value) {
+            return value - 14;
+        }),
         datasets: [{
             label: "Pressure",
+            data: [...Array(15)],
             borderColor: "#FF5733",
-            data: [],
             fill: false,
             pointStyle: 'circle',
             backgroundColor: '#3498DB',
-            pointRadius: 5,
+            pointRadius: 3,
             pointHoverRadius: 7,
             lineTension: 0,
         }]
@@ -48,46 +26,114 @@ var chartPressure = new Chart(pressChart, {
     // Configuration options go here
     options: {}
 
-});
+}
+
+// document.getElementById("rawTelemetry").innerHTML =
+//     "
+//         < p > hello < p >
+//         "
+
+var tempChart = document.getElementById('tempChart').getContext('2d');
+tempChartConfig = JSON.parse(JSON.stringify(chartConfig))
+tempChartConfig.data.datasets[0].label = "Temperature";
+var chartTemp = new Chart(tempChart, tempChartConfig);
+
+var pressChart = document.getElementById('pressChart').getContext('2d');
+pressureChartConfig = JSON.parse(JSON.stringify(chartConfig))
+pressureChartConfig.data.datasets[0].label = "Pressure";
+var chartPressure = new Chart(pressChart, pressureChartConfig);
+
+var heightChart = document.getElementById('heightChart').getContext('2d');
+heightChartConfig = JSON.parse(JSON.stringify(chartConfig))
+heightChartConfig.data.datasets[0].label = "Height";
+var chartHeight = new Chart(heightChart, heightChartConfig);
+
+var longChart = document.getElementById('longChart').getContext('2d');
+longChartConfig = JSON.parse(JSON.stringify(chartConfig))
+longChartConfig.data.datasets[0].label = "Longitude";
+var chartLong = new Chart(longChart, longChartConfig);
+
+var latChart = document.getElementById('latChart').getContext('2d');
+latChartConfig = JSON.parse(JSON.stringify(chartConfig))
+latChartConfig.data.datasets[0].label = "Latitude";
+var chartLat = new Chart(latChart, latChartConfig);
 
 socket.on('connect', () => { console.log("connected_GUI") })
 
 
+// socket.on('temperature', (data) => { //As a temp data is received
+//     chartTemp.data.datasets.forEach((dataset) => {
+//         dataset.data.shift(); //Remove first temp data
+//         dataset.data.push(data['temp']); //Insert latest temp data
+//     });
+//     chartTemp.update(); //Update the graph.
+// });
+
 socket.on('temperature', (data) => { //As a temp data is received
-    console.log("data_received on gui");
-    console.log(data);
-    document.getElementById('date').innerHTML = data.date; //update the date
-    if (chartTemp.data.labels.length != 15) { //If we have less than 15 data points in the graph
-        chartTemp.data.labels.push(data.time); //Add time in x-asix
-        chartTemp.data.datasets.forEach((dataset) => {
-            dataset.data.push(data['temp']); //Add temp in y-axis
-        });
-    } else { //If there are already 15 data points in the graph.
-        chartTemp.data.labels.shift(); //Remove first time data
-        chartTemp.data.labels.push(data.time); //Insert latest time data
-        chartTemp.data.datasets.forEach((dataset) => {
-            dataset.data.shift(); //Remove first temp data
-            dataset.data.push(data['temp']); //Insert latest temp data
-        });
-    }
+    console.log(data)
+    console.log("above is data")
+
+    chartTemp.data.datasets.forEach((dataset) => {
+        dataset.data.shift(); //Remove first temp data
+        dataset.data.push(data.Temperature); //Insert latest temp data
+    });
     chartTemp.update(); //Update the graph.
+
+    chartPressure.data.datasets.forEach((dataset) => {
+        dataset.data.shift(); //Remove first temp data
+        dataset.data.push(data.Pressure); //Insert latest temp data
+    });
+    chartPressure.update(); //Update the graph.
+
+    document.getElementById('date').innerHTML = data.date; //update the date
+    chartHeight.data.datasets.forEach((dataset) => {
+        dataset.data.shift(); //Remove first temp data
+        dataset.data.push(data.HeightAboveMSL); //Insert latest temp data
+    });
+    chartHeight.update(); //Update the graph.
+
+    // document.getElementById('date').innerHTML = data.date; //update the date
+
+    chartLong.data.datasets.forEach((dataset) => {
+        dataset.data.shift(); //Remove first temp data
+        dataset.data.push(data.Longitude); //Insert latest temp data
+    });
+    chartLong.update(); //Update the graph.
+
+    // document.getElementById('date').innerHTML = data.date; //update the date
+
+    chartLat.data.datasets.forEach((dataset) => {
+        dataset.data.shift(); //Remove first temp data
+        dataset.data.push(data.Latitude); //Insert latest temp data
+    });
+    chartLat.update(); //Update the graph.
+
+    var today = new Date();
+    var date = today.getDate() + "-" + today.getMonth() + 1 + "-" + today.getFullYear();
+
+
+    document.getElementById('date').innerHTML = date; //update the date
+
+    // chartHeight.data.datasets.forEach((dataset) => {
+    //     dataset.data.shift(); //Remove first temp data
+    //     dataset.data.push(data['Height']); //Insert latest temp data
+    // });
+
+    // chartHeight.update(); //Update the graph.
 });
 
-socket.on('pressure', (data) => { //As a temp data is received
-    console.log("data_received on gui");
-    document.getElementById('date').innerHTML = data.date; //update the date
-    if (chartTemp.data.labels.length != 15) { //If we have less than 15 data points in the graph
-        chartPressure.data.labels.push(data.time); //Add time in x-asix
-        chartPressure.data.datasets.forEach((dataset) => {
-            dataset.data.push(data['pressure']); //Add temp in y-axis
-        });
-    } else { //If there are already 15 data points in the graph.
-        chartPressure.data.labels.shift(); //Remove first time data
-        chartPressure.data.labels.push(data.time); //Insert latest time data
-        chartPressure.data.datasets.forEach((dataset) => {
-            dataset.data.shift(); //Remove first temp data
-            dataset.data.push(data['pressure']); //Insert latest temp data
-        });
-    }
-    chartPressure.update(); //Update the graph.
-});
+// document.getElementById('date').innerHTML = data.date; //update the date
+//     if (chartHeight.data.labels.length != 15) { //If we have less than 15 data points in the graph
+//         chartHeight.data.labels.push(data.time); //Add time in x-asix
+//         chartHeight.data.datasets.forEach((dataset) => {
+//             dataset.data.push(data['Height']); //Add temp in y-axis
+//         });
+//     } else { //If there are already 15 data points in the graph.
+//         chartHeight.data.labels.shift(); //Remove first time data
+//         chartHeight.data.labels.push(data.time); //Insert latest time data
+//         chartHeight.data.datasets.forEach((dataset) => {
+//             dataset.data.shift(); //Remove first temp data
+//             dataset.data.push(data['Height']); //Insert latest temp data
+//         });
+//     }
+//     chartHeight.update(); //Update the graph.
