@@ -21,6 +21,7 @@ const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
 const parser = new Readline({ delimiter: '\r\n\r\n' })
 port.pipe(parser);
+port.write("force quit");
 
 io.on('connection', (socket) => {
   console.log("Someone connected."); //show a log as a new client connects.
@@ -41,6 +42,16 @@ parser.on('data', (sensordata) => { //Read data
   console.log(serialArr);
 
   var dataObj = JSON.parse("{"+serialArr.join()+"}");
+  dataObj["xOrientation"]=1;
+  dataObj["yOrientation"]=2;
+  dataObj["zOrientation"]=-1;
+  dataObj["yAcceleration"]=2;
+  dataObj["xAcceleration"]=1;
+  dataObj["zAcceleration"]=-1;
+  dataObj["xGyro"]=1;
+  dataObj["yGyro"]=2;
+  dataObj["zGyro"]=-1;
+
 
   console.log(dataObj)
   io.sockets.emit('temperature', dataObj);

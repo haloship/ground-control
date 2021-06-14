@@ -15,17 +15,28 @@
       <h5>Raw Telemetry</h5>
       <div id="rawTelemetry">
         <table>
-          <tr>
-            <td>
-              <p id="rawTemp">1234</p>
-              <p id="rawPressure">1234</p>
-              <p id="rawHeight">1234</p>
-            </td>
-            <td>
-              <p id="rawLong">1234</p>
-              <p id="rawLat">124</p>
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <td id="rawTemp"></td>
+              <td ></td>
+            </tr>
+            <tr>
+              <td id="rawHeight"></td>
+              <td ></td>
+            </tr>
+            <tr>
+              <td id="rawPressure"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td id="rawLong"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td id = "rawLat"></td>
+              <td></td>
+            </tr>
+          </tbody>
         </table>
 
 
@@ -51,11 +62,28 @@
       <h5>Latitude</h5>
       <canvas id="latChart"></canvas>
     </div>
+    <div class="chart-container">
+      <h5>Orientation</h5>
+      <canvas id="orientationChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h5>Acceleration</h5>
+      <canvas id="accelerationChart"></canvas>
+    </div>
+    <!-- <div class="chart-container">
+      <h5>Gyro</h5>
+      <canvas id="gyroChart"></canvas>
+    </div> -->
+    <!-- <div class="map-container">
+      <h5>Map</h5>
+      <div id="map"></div>
+    </div> -->
   </div>
 
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js"></script>
   <script type="text/javascript" src="chart.js"></script>
 
 </body>

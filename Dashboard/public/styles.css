@@ -1,4 +1,10 @@
-h1 {
+body{
+    text-align: center;
+    font-family: 'Lato', sans-serif;
+    background-color: black;
+    color: white;
+}
+/* h1 {
     text-align: center;
     font-family: 'Lato', sans-serif;
 }
@@ -8,14 +14,14 @@ h4 {
     font-family: 'Lato', sans-serif;
 }
 
-h5 {
-    text-align: center;
-    font-family: 'Lato', sans-serif;
-}
-
 p {
     text-align: center;
     font-family: 'Lato', sans-serif;
+} */
+
+h5 {
+    font-size: 100%;
+    margin-bottom: 10px;
 }
 
 .all-chart-container {
@@ -31,6 +37,27 @@ p {
     padding: 10px 20px 20px 20px;
     margin: 20px 20px 20px 20px;
     position: relative;
-    width: 300px;
+    width: 400px;
     /* margin: auto; */
 }
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    width:250px;
+    height: 150px;
+    margin-top: 20px;
+  }
+  
+  tr {
+    border: none;
+  }
+  
+  td:first-child {
+    border-right: solid 4px #E8E8E8;
+    text-align: left;
+  }
+
+  .rawTelemetry{
+    text-align: left;
+  }

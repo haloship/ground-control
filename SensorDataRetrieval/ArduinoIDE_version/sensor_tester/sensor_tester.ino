@@ -57,11 +57,20 @@ void setup()
   myGPS.saveConfiguration(); //Save the current settings to flash and BBR
 }
 
+/*
+void loop(){
+    if (! bmp.performReading()) {
+//    /Serial.println("Failed to perform reading :(");
+    return;
+  }
+//  /Serial.print("Temperature = ");
+  Serial.println(bmp.temperature);
+  delay(3000);}
+*/
 
 void loop()
 {
   /*
-
   //UBlox Execution
   Serial.println("UBlox Execution -------------------");
   if (millis() - lastTime > 1000)
@@ -89,19 +98,18 @@ void loop()
     Serial.println();
   }
 
-  */
+  
 
   //BMP388 Execution
-//  Serial.println("BMP388 Execution -------------------");/
+  Serial.println("BMP388 Execution -------------------");
   if (! bmp.performReading()) {
-//    /Serial.println("Failed to perform reading :(");
+    Serial.println("Failed to perform reading :(");
     return;
   }
-//  /Serial.print("Temperature = ");
-  Serial.println(bmp.temperature);
-  delay(3000);
-//  Ser/ial.println(" *C");
-/*
+  Serial.print("Temperature = ");
+  Serial.print(bmp.temperature);
+  Serial.println(" *C");
+
   Serial.print("Pressure = ");
   Serial.print(bmp.pressure / 100.0);
   Serial.println(" hPa");
@@ -112,7 +120,7 @@ void loop()
 
   Serial.println();
   //  delay(2000);
-
+*/
   //BMX055 Execution
   Serial.println("BMX055 Execution -------------------");
   BMX055_Gyro();
@@ -150,6 +158,7 @@ void loop()
   roll = MadgwickFilter.getRoll();
   pitch = MadgwickFilter.getPitch();
   yaw = MadgwickFilter.getYaw();
+  
   Serial.print(XYZ_ROTATION);//XYZ_ROTATION=4
   Serial.print(",");
   Serial.print(roll);
@@ -159,5 +168,5 @@ void loop()
   Serial.println(yaw);
   Serial.println();
   delay(1000);
-  */
+  
 }
