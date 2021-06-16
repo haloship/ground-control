@@ -148,7 +148,7 @@ tempChartConfig.options.scales = { xAxes: [{
     }],yAxes: [{ gridLines: {
     display: false ,
     color: "#FFFFFF"
-  },display: true, ticks: { steps: 10, stepValue: 5, max: 30, min: 20 } }] }
+  },display: true, ticks: { steps: 10, stepValue: 5, suggestedMax: 30, suggestedMin: 20 } }] }
 var chartTemp = new Chart(tempChart, tempChartConfig);
 
 var pressChart = document.getElementById('pressChart').getContext('2d');
@@ -164,7 +164,7 @@ pressureChartConfig.options.scales = { xAxes: [{
     }],yAxes: [{ gridLines: {
     display: false ,
     color: "#FFFFFF"
-  },display: true, ticks: { steps: 10, stepValue: 5, max: 1008, min: 1007 } }] }
+  },display: true, ticks: { steps: 10, stepValue: 5, suggestedMax: 1008, suggestedMin: 1007 } }] }
 var chartPressure = new Chart(pressChart, pressureChartConfig);
 
 var heightChart = document.getElementById('heightChart').getContext('2d');
@@ -180,7 +180,7 @@ heightChartConfig.options.scales = { xAxes: [{
     }],yAxes: [{ gridLines: {
     display: false ,
     color: "#FFFFFF"
-  },display: true, ticks: { steps: 10, stepValue: 5, max: 50, min: 0 } }] }
+  },display: true, ticks: { steps: 10, stepValue: 5, suggestedMax: 50, suggestedMin: 0 } }] }
 var chartHeight = new Chart(heightChart, heightChartConfig);
 
 var longChart = document.getElementById('longChart').getContext('2d');
@@ -196,7 +196,7 @@ longChartConfig.options.scales = { xAxes: [{
     }],yAxes: [{ gridLines: {
     display: false ,
     color: "#FFFFFF"
-  },display: true, ticks: { steps: 10, stepValue: 5, max: 140.136, min: 140.135 } }] }
+  },display: true, ticks: { steps: 10, stepValue: 5, suggestedMax: 140.136, suggestedMin: 140.135 } }] }
 var chartLong = new Chart(longChart, longChartConfig);
 
 var latChart = document.getElementById('latChart').getContext('2d');
@@ -212,7 +212,7 @@ latChartConfig.options.scales = { xAxes: [{
     }],yAxes: [{ gridLines: {
     display: false ,
     color: "#FFFFFF"
-  },display: true, ticks: { steps: 10, stepValue: 5, max: 35.717, min: 35.716 } }] }
+  },display: true, ticks: { steps: 10, stepValue: 5, suggestedMax: 35.717, suggestedMin: 35.716 } }] }
 var chartLat = new Chart(latChart, latChartConfig);
 
 var orientationChart = document.getElementById('orientationChart').getContext('2d');

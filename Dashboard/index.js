@@ -18,8 +18,8 @@ app.use(express.static('public')); //Send index.html page on GET /
 
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const port = new SerialPort('/dev/ttyACM0', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
-const parser = new Readline({ delimiter: '\r\n\r\n' })
+const port = new SerialPort('/dev/ttyACM1', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
+const parser = new Readline({ delimiter: '\r\n' })
 port.pipe(parser);
 port.write("force quit");
 
@@ -30,27 +30,46 @@ io.on('connection', (socket) => {
 parser.on('data', (sensordata) => { //Read data
   console.log("before");
   console.log(sensordata);
-  var serialArr = sensordata.split("\r\n")
-  serialArr.forEach(function(part, index) {
-    var line = this[index];
-    var strinArr = line.split(" ")
-    strinArr[0]='"'+strinArr[0]+'"'
-    this[index] = strinArr.join("")
+  var serialArr = sensordata.split("\n");
 
-  }, serialArr);
+  // serialArr.forEach(function(part, index) {
+  //   var line = this[index];
+  //   var strinArr = line.split(" ")
+  //   strinArr[0]='"'+strinArr[0]+'"'
+  //   this[index] = strinArr.join("")
+
+  // }, serialArr);
   
   console.log(serialArr);
 
-  var dataObj = JSON.parse("{"+serialArr.join()+"}");
-  dataObj["xOrientation"]=1;
-  dataObj["yOrientation"]=2;
-  dataObj["zOrientation"]=-1;
-  dataObj["yAcceleration"]=2;
-  dataObj["xAcceleration"]=1;
-  dataObj["zAcceleration"]=-1;
-  dataObj["xGyro"]=1;
-  dataObj["yGyro"]=2;
-  dataObj["zGyro"]=-1;
+  // var dataObj = JSON.parse("{"+serialArr.join()+"}");
+  var dataObj = {
+    Pressure :serialArr[0],
+    Temperature:serialArr[1],
+    HeightAboveMSL:serialArr[2],
+    Latitude:serialArr[3],
+    Longitude:serialArr[4],
+    xOrientation :1,
+    yOrientation:2,
+    zOrientation:-1,
+    xAcceleration :2,
+    yAcceleration:1,
+    zAcceleration:-2,
+    xGyro :1,
+    yGyro:2,
+    zGyro:-1
+
+
+  }
+  // dataObj["xOrientation"]=1;
+  // dataObj["yOrientation"]=2;
+  // dataObj["zOrientation"]=-2;
+  // dataObj["yAcceleration"]=2;
+  // dataObj["xAcceleration"]=1;
+  // dataObj["zAcceleration"]=-2;
+  // dataObj["xGyro"]=1;
+  // dataObj["yGyro"]=2;
+  // dataObj["zGyro"]=-1;
 
 
   console.log(dataObj)
