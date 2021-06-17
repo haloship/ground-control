@@ -1,8 +1,9 @@
-# Flight Software for Haloship's Custom Avionics
+# Ground Control Software for Haloship's Custom Avionics
 
 ## Introduction
 
-This flight software was developed as a PlatformIO project. To port the project for a new board you must update the `platformio.ini` with the relevant configuration.
+This ground software was based on the flight software developed for halpship. The ground station software runs a tanceiver to process incomming data from the flight software.
+To port the project for a new board you must update the `platformio.ini` with the relevant configuration.
 
 The Haloship flight software is built atop the [Arduino core provided by stm32duino](https://github.com/stm32duino/Arduino_Core_STM32). All code was tested with the [Adafruit Feather STM32F405](https://www.adafruit.com/product/4382) development board and is built for a custom STM32F405 board.
 
