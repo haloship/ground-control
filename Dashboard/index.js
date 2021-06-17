@@ -18,7 +18,7 @@ app.use(express.static('public')); //Send index.html page on GET /
 
 const SerialPort = require('serialport');
 const Readline = SerialPort.parsers.Readline;
-const port = new SerialPort('/dev/ttyACM1', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
+const port = new SerialPort('/dev/ttyACM0', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
 const parser = new Readline({ delimiter: '\r\n' })
 port.pipe(parser);
 port.write("force quit");
@@ -73,7 +73,7 @@ parser.on('data', (sensordata) => { //Read data
 
 
   console.log(dataObj)
-  io.sockets.emit('temperature', dataObj);
+  io.sockets.emit('sensorData', dataObj);
   
 
   });
