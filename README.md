@@ -1,2 +1,2 @@
 # Ground Control
-Repository to host the core code for the avionics systems
+Repository to host ground-software to receive incoming flight data and Dahboard code to visualise incoming data, and 
