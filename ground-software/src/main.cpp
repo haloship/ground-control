@@ -3,14 +3,8 @@
 
 // Instantiate objects
 // Buzzer *buzzer;
-// PWMControl *pwm;
-// Barometer *barometer;
 // Blink *blinker;
 Transceiver *transceiver;
-// IMU *imu;
-// Flash *flash;
-// Servo main_chute_servo;
-// Servo drogue_chute_servo;
 
 // SERVO USES STM32F4 TIMER 1 THAT OPERATES AT TWICE THE EXPECTED FREQUENCY
 // HENCE WRITE ALL MICROSECONDS IN DOUBLE
@@ -38,18 +32,6 @@ bool check_sensors_feather(
     Serial.println("************************************");
 
     bool error = true;
-
-    // Check status of LPS25HB Barometer
-    // if (barometer->checkStatus())
-    // {
-    //     Serial.println("Barometer connection success! \xE2\x9C\x93");
-    // }
-    // else
-    // {
-    //     Serial.println("Barometer connection failed \xE2\x9C\x97");
-    //     error = false;
-    // }
-
     // Check status of RFM69HW Transceiver
     if (transceiver->checkStatus())
     {
@@ -78,13 +60,8 @@ void setup()
         delay(1);
     }
 
-    // Define all needed submodules
     // buzzer = new Buzzer();
-    // pwm = new PWMControl();
-    // barometer = new Barometer(LPS_CS, 500);
     transceiver = new Transceiver(RFM69_CS, RFM69_INT);
-    // imu = new IMU(500);
-    // flash = new Flash(FLASH_CS);
 
     // blinker = new Blink(pwm);
 
@@ -96,9 +73,7 @@ void setup()
         ? Serial.println("sensors success")
         : Serial.println("sensors failed");
 
-    // // Enable chips
-    // barometer->enable();
-    // imu->enable();
+    // Enable chips
     transceiver->enable();
 }
 
