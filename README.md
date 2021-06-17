@@ -1,2 +1,2 @@
 # Ground Control
-Repository to host ground-software to receive incoming flight data and Dahboard code to visualise incoming data.
+Repository to host ground-software to receive incoming flight data and Dahboard code to visualise incoming data. Please proceed to follow the instruction/READ.me files in their respective folders. 
