@@ -30,27 +30,13 @@ const chartConfig = {
                 gridLines: {
                     display: false ,
                     color: "#FFFFFF"
-                  },
-                    // display: true,
-                    // scaleLabel: {
-                    //     display: true,
-                    //     labelString: 'Month'
-                    // }
+                  }
                 }],
             yAxes: [{
                 gridLines: {
                     display: false ,
                     color: "#FFFFFF"
                   }
-                
-                // display: true,
-                // ticks: {
-
-                //     steps: 10,
-                //     stepValue: 5,
-                //     max: 10,
-                //     min: -10
-                // }
             }]
         }
     }
@@ -225,11 +211,6 @@ accelerationChartConfig = JSON.parse(JSON.stringify(xyzChartConfig))
 // latChartConfig.data.datasets[0].label = "Latitude";
 var chartAcceleration = new Chart(accelerationChart, accelerationChartConfig);
 
-// var gyroChart = document.getElementById('gyroChart').getContext('2d');
-// gyroChartConfig = JSON.parse(JSON.stringify(xyzChartConfig))
-// // latChartConfig.data.datasets[0].label = "Latitude";
-// var chartGyro = new Chart(gyroChart, gyroChartConfig);
-
 
 
 socket.on('connect', () => { console.log("connected_GUI") })
@@ -275,9 +256,6 @@ socket.on('temperature', (data) => { //As a temp data is received
     });
     chartLat.update(); //Update the graph.
 
-    // document.getElementById("rawXOrientation").innerText = "Orientation: " + data.xOrientation.toString()
-    // document.getElementById("rawYOrientation").innerText = "Orientation: " + data.yOrientation.toString()
-    // document.getElementById("rawZOrientation").innerText = "Orientation: " + data.zOrientation.toString()
     chartOrientation.data.datasets[0].data.shift();
     chartOrientation.data.datasets[0].data.push(data.xOrientation);
     chartOrientation.data.datasets[1].data.shift();
@@ -296,27 +274,10 @@ socket.on('temperature', (data) => { //As a temp data is received
     console.log(chartAcceleration.data.datasets[2]);
     chartAcceleration.update(); //Update the graph.
 
-    // chartGyro.data.datasets[0].data.shift();
-    // chartGyro.data.datasets[0].data.push(data.xGyro);
-    // chartGyro.data.datasets[1].data.shift();
-    // chartGyro.data.datasets[1].data.push(data.yGyro);
-    // chartGyro.data.datasets[2].data.shift();
-    // chartGyro.data.datasets[2].data.push(data.zGyro);
-    // console.log(chartGyro.data.datasets[2]);
-    // chartGyro.update(); //Update the graph.
-
     var today = new Date();
     var date = today.getDate() + "-" + today.getMonth() + 1 + "-" + today.getFullYear();
 
 
     document.getElementById('date').innerHTML = date; //update the date
-
-
-
-    // var response = marker.setPosition(new google.maps.LatLng(data.Latitude, data.Longitude));
-    // try { response = typeof response == "object" ? JSON.stringify(response) : response; } catch (e) { }
-    // // responseTextarea.value = response;
-    // console.log(response);
-
 
 });
