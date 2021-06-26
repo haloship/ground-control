@@ -1,3 +1,4 @@
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var server = app.listen(4000, () => { //Start the server, listening on port 4000.
@@ -23,6 +24,10 @@ const parser = new Readline({ delimiter: '\r\n' })
 port.pipe(parser);
 port.write("force quit");
 
+let date = new Date();
+fileName = "data/"+String(date.getDate())+"-"+String(date.getHours())+":"+String(date.getMinutes());
+
+
 io.on('connection', (socket) => {
   console.log("Someone connected."); //show a log as a new client connects.
 })
@@ -41,6 +46,11 @@ parser.on('data', (sensordata) => { //Read data
   // }, serialArr);
   
   console.log(serialArr);
+
+  fs.appendFile(fileName, sensordata, function (err) {
+    if (err) throw err;
+    console.log('Saved!');
+  }); 
 
   // var dataObj = JSON.parse("{"+serialArr.join()+"}");
   var dataObj = {
