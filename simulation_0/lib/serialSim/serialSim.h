@@ -1,25 +1,19 @@
-#ifndef RFM69_H
-#define RFM69_H
-
-#define RFM69_RST PC1
-#define RFM69_FREQ 915.0
-
+// #include <TaskScheduler.h>
 #include <scheduler.h>
-#include <RH_RF69.h>
-#include <SPI.h>
 #include <Arduino.h>
-#include "chip.h"
+// #include <SD.h>
 
-class SerialSim : public Task
+class serialSim : public Task
 {
 private:
     uint8_t *buffer;
+    // File myFile;
     long measurements_delay;
     long previous_time = 0;
 
 public:
-    SerialSim(int measurements_delay);
-    ~SerialSim();
+    serialSim(long measurements_delay);
+    ~serialSim();
 
     bool measurementsReady();
 
@@ -31,5 +25,3 @@ public:
     // Chip virtual methods
     bool checkStatus();
 };
-
-#endif
