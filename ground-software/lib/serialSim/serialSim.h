@@ -1,5 +1,5 @@
-#ifndef RFM69_H
-#define RFM69_H
+#ifndef SERIALSIM_H
+#define SERIALSIM_H
 
 #define RFM69_RST PC1
 #define RFM69_FREQ 915.0
@@ -22,7 +22,7 @@ private:
     long previous_time = 0;
 
 public:
-    SerialSim(GPS *gps, IMU *imu, int measurements_delay );
+    SerialSim(GPS *gps, IMU *imu, int measurements_delay);
     ~SerialSim();
 
     bool measurementsReady();

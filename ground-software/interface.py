@@ -65,6 +65,19 @@ parser.add_argument(
     help="Build and upload firmware to Haloship F405",
 )
 
+parser.add_argument(
+    "-bhs",
+    "--build_haloship_sim",
+    action="store_true",
+    help="Build firmware for Haloship F405",
+)
+parser.add_argument(
+    "-uhs",
+    "--upload_haloship_sim",
+    action="store_true",
+    help="Build and upload firmware to Haloship F405",
+)
+
 
 args = parser.parse_args()
 if args.monitor:
@@ -87,6 +100,10 @@ elif args.build_haloship:
     print("Building for Haloship F405...")
     os.system("pio run -e haloship")
 
+elif args.build_haloship_sim:
+    print("Building for Haloship_Sim F405...")
+    os.system("pio run -e haloship_sim")
+
 elif args.upload_nucleo:
     print("Building and uploading to Nucleo-F411RE...")
     os.system("pio run -e nucleo -t upload")
@@ -98,3 +115,7 @@ elif args.upload_feather:
 elif args.upload_haloship:
     print("Building and uploading to Haloship F405...")
     os.system("pio run -e haloship -t upload")
+
+elif args.upload_haloship_sim:
+    print("Building and uploading to Haloship_Sim F405...")
+    os.system("pio run -e haloship_sim -t upload")

@@ -10,10 +10,13 @@ Transceiver::~Transceiver() {}
 bool Transceiver::Callback()
 {
 
+    // receive message from flight computer
     if (this->driver->available())
     {
         // Should be a message for us now
-        uint8_t buf[RH_RF69_MAX_MESSAGE_LEN];
+        // uint8_t buf[RH_RF69_MAX_MESSAGE_LEN];
+        uint8_t buf[120];
+
         uint8_t len = sizeof(buf);
         this->buffer = buf;
 
@@ -28,7 +31,49 @@ bool Transceiver::Callback()
         return true;
     }
 
-    return false;
+     // receive message from Dashboard
+    const byte DATA_MAX_SIZE = 32;
+    char data[DATA_MAX_SIZE];       // an array to store the received data
+    static char endMarker = '\n';   // message separator
+    char receivedChar;              // read char from serial port
+    int ndx = 0;                    // current index of data buffer  // clean data buffer
+    memset(data, 32, sizeof(data)); // read while we have data available and we are
+    // still receiving the same message.
+    while (Serial.available() > 0)
+    {
+        receivedChar = Serial.read();
+        if (receivedChar == endMarker)
+        {
+            data[ndx] = '\0'; // end current message
+            continue;
+        } // looks like a valid message char, so append it and
+        // increment our index
+        // Serial.println(receivedChar);
+        data[ndx] = receivedChar;
+        ndx++;
+        if (ndx >= DATA_MAX_SIZE)
+        {
+            break;
+        }
+        Serial.println(data);
+    }
+
+    if(strlen(data) == 0) {
+
+        char radiopacket[RH_RF69_MAX_MESSAGE_LEN];
+        snprintf(radiopacket, RH_RF69_MAX_MESSAGE_LEN, "%d\n ", 1);
+        // Send a message!
+        this->driver->send((uint8_t *)radiopacket, sizeof(radiopacket));
+        this->driver->waitPacketSent();
+        Serial.println("sending to flight computer");
+        // this->previous_time = current_time;
+        // return true;
+        
+    }
+
+    memset(data, 32, sizeof(data));
+
+    return true;
 }
 
 bool Transceiver::OnEnable()

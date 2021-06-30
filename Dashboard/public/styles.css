@@ -26,6 +26,16 @@ h5 {
     width: 400px;
     /* margin: auto; */
 }
+#mapdiv {
+  border-radius: 25px;
+  border: 2px solid #C0C0C0;
+  padding: 10px 20px 20px 20px;
+  margin: 20px 20px 20px 20px;
+  position: relative;
+  width: 900px;
+  height: 400px;
+  /* margin: auto; */
+}
 
 table {
     border-collapse: collapse;
@@ -47,3 +57,66 @@ table {
   .rawTelemetry{
     text-align: left;
   }
+
+  .frame {
+    fill: none;
+    stroke: #000;
+}
+
+.axis text {
+    font: 10px sans-serif;
+    color: #C0C0C0;
+}
+
+.axis line,
+.axis circle {
+    fill: none;
+    /* stroke: steelblue; */
+    stroke: white;
+    stroke-dasharray: 4;
+}
+
+.axis:last-of-type circle {
+    stroke: white;
+    stroke-dasharray: none;
+}
+
+.line {
+    fill: none;
+    stroke: orange;
+    stroke-width: 3px;
+}
+div {
+  display: inline;
+}
+.bn15 {
+  font-family: lato,sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: #ffffff;
+  display: inline-block;
+  padding: 10px 40px 10px 40px;
+  position: relative;
+  border: 3px solid #ffffff;
+  border-radius: 20px;
+  margin:15px;
+}
+.bn15:hover {
+  font-family: lato,sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  color: #ffffff;
+  display: inline-block;
+  padding: 10px 40px 10px 40px;
+  position: relative;
+  border: 3px solid #ffffff;
+  border-radius: 20px;
+  background-color: grey;
+  margin:15px;
+}
+
+

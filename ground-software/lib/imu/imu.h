@@ -1,3 +1,5 @@
+#ifndef IMU_H
+#define IMU_H
 #include <scheduler.h>
 #include <Arduino.h>
 #include <SPI.h>
@@ -34,3 +36,5 @@ public:
     // Chip virtual methods
     bool checkStatus();
 };
+
+#endif

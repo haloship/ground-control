@@ -8,6 +8,9 @@
 // #include <pwm.h>
 // #include <lps25hb.h>
 #include <rfm69.h>
+#include <imu.h>
+#include <gps.h>
+#include <serialSim.h>
 // #include <blink.h>
 // // #include <imu.h>
 // #include <flash.h>

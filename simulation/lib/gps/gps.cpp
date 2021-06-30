@@ -19,7 +19,7 @@ long GPS::getAltitude()
 
 long GPS::getLatitude()
 {
-    Serial.println(this->latitude);
+    // Serial.println(this->latitude);
     return this->latitude;
 }
 

@@ -1,9 +1,12 @@
 #include "serialSim.h"
 
-SerialSim::SerialSim(int measurements_delay) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
+SerialSim::SerialSim(GPS *gps, IMU *imu, int measurements_delay) : Task(TASK_MILLISECOND, TASK_FOREVER, &scheduler, false)
 {
     this->measurements_delay = measurements_delay;
     this->previous_time = 0;
+    this->gps = gps;
+    this->imu = imu;
+
 }
 
 SerialSim::~SerialSim() {}
@@ -34,6 +37,8 @@ bool SerialSim::Callback()
                  -1183337104);
         // Send a message!
         Serial.println(radiopacket);
+        Serial.println(this->gps->getLatitude());
+        Serial.println(this->gps->getLongitude());
         // this->myFile.write(radiopacket);
         this->previous_time = current_time;
     }

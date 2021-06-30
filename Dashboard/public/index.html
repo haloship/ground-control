@@ -43,6 +43,12 @@
       </div>
     </div>
     <div class="chart-container">
+      <h5>State Control</h5>
+      <!-- <canvas id="tempChart"></canvas> -->
+      <a id="launchBtn" onClick="launchReady()" class="bn15">Button</a><br>
+      <a id="endButton" onClick="endFlight()" class="bn15">Button</a>
+    </div>
+    <div class="chart-container">
       <h5>Temperature</h5>
       <canvas id="tempChart"></canvas>
     </div>
@@ -70,15 +76,50 @@
       <h5>Acceleration</h5>
       <canvas id="accelerationChart"></canvas>
     </div>
+    <div class="chart-container">
+      <h5>GPS</h5>
+      <div id="gps"></div>
+    </div>
+
+    <!-- <div class="map-container">
+      <h5>GPS</h5>
+      
+    </div> -->
+    <div id="mapdiv" class="smallmap olMap"></div>
+
+
 
   </div>
 
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
   <script type="module" src="chartConfigs.js"></script>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
   <script type="module" src="chart.js"></script>
+  <!-- <script>
+    map = new OpenLayers.Map("mapdiv");
+    map.addLayer(new OpenLayers.Layer.OSM());
+
+    var lonLat = new OpenLayers.LonLat( -0.1279688 ,51.5077286 )
+          .transform(
+            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+            map.getProjectionObject() // to Spherical Mercator Projection
+          );
+          
+    var zoom=16;
+
+    var markers = new OpenLayers.Layer.Markers( "Markers" );
+    map.addLayer(markers);
+    
+    markers.addMarker(new OpenLayers.Marker(lonLat));
+    
+    map.setCenter (lonLat, zoom);
+  </script> -->
 
 </body>
 
