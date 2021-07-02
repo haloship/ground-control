@@ -103,7 +103,7 @@ export function openStreetMap() {
     // }).addTo(map);
 
     // Add OSM tile layer to the Leaflet map.
-    L.tileLayer('../maps/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer('../maps/maps_la/{z}/{x}/{y}.png').addTo(map);
 
     // Target's GPS coordinates.
     var target = L.latLng(33.9166568, -118.333609);

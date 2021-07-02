@@ -3,6 +3,7 @@
         "chart.js": "^2.4.0",
         "d3": "^3.5.17",
         "leaflet": "^1.7.1",
-        "socket.io": "^2.0.4"
+        "socket.io": "^2.0.4",
+        "underscore": "^1.13.1"
     }
 }
