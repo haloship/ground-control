@@ -1,6 +1,11 @@
 // imoprt libraries
-var fs = require('fs');
-var express = require('express');
+import fs from 'fs';
+import express from 'express';
+import { Server } from "socket.io";
+
+import { parsePacket } from "./scripts/parse.js";
+import { messageSetup } from "./scripts/message.js";
+
 
 // Initialize app
 var app = express();
@@ -8,7 +13,7 @@ var server = app.listen(4000, () => { //Start the server, listening on port 4000
   console.log("Listening to requests on port 4000...");
 })
 
-var io = require('socket.io')(server, {
+const io = new Server(server, {
   cors: {
     origin: "http://localhost:8100",
     methods: ["GET", "POST"],
@@ -20,37 +25,31 @@ var io = require('socket.io')(server, {
 
 app.use(express.static('public')); //Send index.html page on GET /
 
-const SerialPort = require('serialport');
+// const SerialPort = require('serialport');
+import SerialPort from 'serialport';
+// const { parsePacket } = require('./scripts/parse');
 const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort('/dev/ttyACM0', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
 const parser = new Readline({ delimiter: '\r\n' })
 port.pipe(parser);
-// port.write("force quit");
 
 let date = new Date();
-fileName = "data/" + String(date.getDate()) + "-" + String(date.getHours()) + ":" + String(date.getMinutes());
-
+let fileName = "data/" + String(date.getDate()) + "-" + String(date.getHours()) + ":" + String(date.getMinutes());
 io.on('connection', (socket) => {
   console.log("Someone connected."); //show a log as a new client connects.
-  socket.on("launchReady", (ready) => {
-    console.log("launchReady");
-    port.write('hello from node\n', (err) => {
-      if (err) {
-        return console.log('Error on write: ', err.message);
-      }
-      console.log('message written');
-    });
-  });
-})
 
+  messageSetup(socket, port);
+});
 var dataObj = {
-  groundLatitude: 340618377,
-  groundLongitude: -1183012118,
+  Time: "20210630T06:52:47Z",
+  State: "S0",
+  groundLatitude: 34.0618377,
+  groundLongitude: -118.3012118,
   Pressure: 1016.409424,
   Temperature: 26.479166,
-  HeightAboveMSL: 24963,
-  Latitude: 339166590,
-  Longitude: -1183337104,
+  HeightAboveMSL: 24.963,
+  Latitude: 33.9166590,
+  Longitude: -118.3337104,
   xOrientation: 1,
   yOrientation: 2,
   zOrientation: -1,
@@ -64,40 +63,24 @@ var dataObj = {
 
 parser.on('data', (sensordata) => { //Read data
   console.log(sensordata);
-  var serialArr = sensordata.split("\n");
-  if (serialArr.length > 2) {
+  var processedData = parsePacket(dataObj, sensordata);
 
-    console.log(serialArr);
+  fs.appendFile(fileName + "-process", processedData, function (err) {
+    if (err) throw err;
+    console.log('Saved processed!');
+  });
 
-    fs.appendFile(fileName, sensordata, function (err) {
-      if (err) throw err;
-      console.log('Saved!');
-    });
+  fs.appendFile(fileName + "-raw", sensordata, function (err) {
+    if (err) throw err;
+    console.log('Saved raw!');
+  });
 
-    // var dataObj = JSON.parse("{"+serialArr.join()+"}");
-    dataObj["groundLatitude"] = serialArr[0];
-    dataObj["groundLongitude"] = serialArr[1];
-    dataObj["Pressure"] = serialArr[2];
-    dataObj["Temperature"] = serialArr[3];
-    dataObj["HeightAboveMSL"] = serialArr[4];
-    dataObj["Latitude"] = serialArr[5];
-    dataObj["Longitude"] = serialArr[6];
-    dataObj["xOrientation"] = 1;
-    dataObj["yOrientation"] = 2;
-    dataObj["zOrientation"] = -1;
-    dataObj["xAcceleration"] = 2;
-    dataObj["yAcceleration"] = 1;
-    dataObj["zAcceleration"] = -2;
-    dataObj["xGyro"] = 1;
-    dataObj["yGyro"] = 2;
-    dataObj["zGyro"] = -1;
+  console.log(dataObj)
+  // io.sockets.emit('sensorData', dataObj)
 
-    console.log(dataObj)
-
-  }
 });
 
-setInterval(()=>io.sockets.emit('sensorData', dataObj), 1000);
+setInterval(() => io.sockets.emit('sensorData', dataObj), 1000);
 
 // io.socket. recerive
 

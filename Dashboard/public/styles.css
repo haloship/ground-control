@@ -50,7 +50,7 @@ table {
   }
   
   td:first-child {
-    border-right: solid 4px #E8E8E8;
+    /* border-right: solid 4px #E8E8E8; */
     text-align: left;
   }
 
@@ -92,31 +92,31 @@ div {
 .bn15 {
   font-family: lato,sans-serif;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 0.8em;
   letter-spacing: 0.1em;
   text-decoration: none;
   color: #ffffff;
   display: inline-block;
-  padding: 10px 40px 10px 40px;
+  padding: 5px 20px 5px 20px;
   position: relative;
   border: 3px solid #ffffff;
   border-radius: 20px;
-  margin:15px;
+  margin:7.5px;
 }
 .bn15:hover {
   font-family: lato,sans-serif;
   font-weight: bold;
-  font-size: 1em;
+  font-size: 0.8em;
   letter-spacing: 0.1em;
   text-decoration: none;
   color: #ffffff;
   display: inline-block;
-  padding: 10px 40px 10px 40px;
+  padding: 5px 20px 5px 20px;
   position: relative;
   border: 3px solid #ffffff;
   border-radius: 20px;
+  margin:7.5px;
   background-color: grey;
-  margin:15px;
 }
 
 

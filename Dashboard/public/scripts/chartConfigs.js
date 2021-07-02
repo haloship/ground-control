@@ -29,12 +29,24 @@ export const chartConfig = {
                   }
                 }],
             yAxes: [{
+                ticks: {
+                    min: 0, // it is for ignoring negative step.
+                    // beginAtZero: true,
+                    callback: function(value, index, values) {
+                        if (Math.floor(value) === value) {
+                            return value;
+                        }
+                    }
+                },
                 gridLines: {
                     display: false ,
                     color: "#FFFFFF"
                   }
             }]
-        }
+        },
+        // animation: {
+        //     duration: 0.05
+        // }
     }
 }
 

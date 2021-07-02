@@ -17,12 +17,15 @@
         <table>
           <tbody>
             <tr>
+              <td id="rawState"></td>
+              <td></td>
+            <tr>
               <td id="rawTemp"></td>
-              <td ></td>
+              <td></td>
             </tr>
             <tr>
               <td id="rawHeight"></td>
-              <td ></td>
+              <td></td>
             </tr>
             <tr>
               <td id="rawPressure"></td>
@@ -33,7 +36,19 @@
               <td></td>
             </tr>
             <tr>
-              <td id = "rawLat"></td>
+              <td id="rawLat"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td id="rawXAcc"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td id="rawYAcc"></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td id="rawZAcc"></td>
               <td></td>
             </tr>
           </tbody>
@@ -44,9 +59,39 @@
     </div>
     <div class="chart-container">
       <h5>State Control</h5>
+      <table>
+        <tbody>
+          <tr>
+            <td><a id="prelaunchBtn" class="bn15">Prelaunch </a>
+            <td>
+            <td><a id="launchBtn" class="bn15">Launch </a>
+            <td>
+          <tr>
+            <td><a id="endBtn" class="bn15">End </a>
+            <td>
+            <td><a id="resetBtn" class="bn15">Reset </a>
+            <td>
+          </tr>
+          <tr>
+            <td><a id="testBtn" class="bn15">Test </a>
+            <td>
+            <td><a id="drogueBtn" class="bn15">Drogue </a>
+            <td>
+          </tr>
+          <tr>
+            <td><a id="mainBtn" class="bn15">Main </a>
+            <td>
+            <!-- <td><a id="" class="bn15">Drogue </a> -->
+            <td>
+          </tr>
+
+
+        </tbody>
+      </table>
       <!-- <canvas id="tempChart"></canvas> -->
-      <a id="launchBtn" onClick="launchReady()" class="bn15">Button</a><br>
-      <a id="endButton" onClick="endFlight()" class="bn15">Button</a>
+
+      <!-- <a id="endBtn" class="bn15">End Flight</a><br>
+      <a id="resetBtn" class="bn15">Software Reset</a> -->
     </div>
     <div class="chart-container">
       <h5>Temperature</h5>
@@ -60,18 +105,18 @@
       <h5>Altitude</h5>
       <canvas id="heightChart"></canvas>
     </div>
-    <div class="chart-container">
+    <!-- <div class="chart-container">
       <h5>Logitude</h5>
       <canvas id="longChart"></canvas>
     </div>
     <div class="chart-container">
       <h5>Latitude</h5>
       <canvas id="latChart"></canvas>
-    </div>
-    <div class="chart-container">
+    </div> -->
+    <!-- <div class="chart-container">
       <h5>Orientation</h5>
       <canvas id="orientationChart"></canvas>
-    </div>
+    </div> -->
     <div class="chart-container">
       <h5>Acceleration</h5>
       <canvas id="accelerationChart"></canvas>
@@ -91,35 +136,31 @@
 
   </div>
 
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-  <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> -->
+  <!-- <script src="./node_modules/chart.js/dist/chart.js"></script> -->
+  <!-- <script src="/node_modules/socket.io-client/dist/lib/socket.io.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script> -->
+  <!-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/> -->
+
+  <script src="node_modules/leaflet/dist/leaflet.js"></script>
+  <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
+  <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- <script src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script> -->
+  <script src="node_modules/d3/d3.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-  <script type="module" src="chartConfigs.js"></script>
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-<link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
-  <script type="module" src="chart.js"></script>
-  <!-- <script>
-    map = new OpenLayers.Map("mapdiv");
-    map.addLayer(new OpenLayers.Layer.OSM());
 
-    var lonLat = new OpenLayers.LonLat( -0.1279688 ,51.5077286 )
-          .transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-          );
-          
-    var zoom=16;
+  <script src="node_modules/leaflet/dist/leaflet.js"></script>
+  <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
 
-    var markers = new OpenLayers.Layer.Markers( "Markers" );
-    map.addLayer(markers);
-    
-    markers.addMarker(new OpenLayers.Marker(lonLat));
-    
-    map.setCenter (lonLat, zoom);
-  </script> -->
+
+  <script type="module" src="scripts/chartConfigs.js"></script>
+  <script type="module" src="app.js"></script>
 
 </body>
 

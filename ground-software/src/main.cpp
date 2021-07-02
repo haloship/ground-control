@@ -46,7 +46,7 @@ void setup()
     imu = new IMU(1000);
     gps = new GPS(1000);
     serialsim = new SerialSim(gps, imu, 1000);
-    transceiver = new Transceiver(RFM69_CS, RFM69_INT);
+    transceiver = new Transceiver(RFM69_CS, RFM69_INT,gps);
 
     // // Run sensor check
     check_sensors(imu, gps, transceiver)

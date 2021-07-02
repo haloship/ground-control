@@ -1,7 +1,8 @@
 import { chartConfig, xyzChartConfig } from "./scripts/chartConfigs.js"
-import { GPS, openStreetMap } from "./scripts/gps.js"
+import { GPS, openStreetMap, updateMap } from "./scripts/gps.js"
 import { lineCharts, updateLineCharts } from "./scripts/lineCharts.js";
 import { buttonSetup } from "./scripts/buttons.js";
+// import io from "socket.io"
 var socket = io.connect('http://localhost:4000'); //connect to server
 
 
@@ -14,24 +15,25 @@ document.getElementById('date').innerHTML = date;
 buttonSetup(socket);
 
 // Initialize lineCharts
-const [chartTemp, chartPressure, chartHeight, chartLong, chartLat, chartOrientation, chartAcceleration] = lineCharts();
+const [chartTemp, chartPressure, chartHeight, chartAcceleration] = lineCharts();
 
 // Initialize d3 gps visualization
 GPS();
 
 // Initialize openStreetMap visualization
-openStreetMap();
+const [map, marker1, marker2] = openStreetMap();
 
 
 
 
-socket.on('connect', () => { console.log("connected_GUI") })
+socket.on('connect', () => { console.log("connected_GUI") });
 
 
 socket.on('sensorData', (data) => { //As a temp data is received
-  console.log(data)
-  console.log("above is data")
+  console.log(data);
+  console.log("above is data");
 
-  updateLineCharts(data, chartTemp, chartPressure, chartHeight, chartLong, chartLat, chartOrientation, chartAcceleration)
+  updateLineCharts(data, chartTemp, chartPressure, chartHeight, chartAcceleration);
+  updateMap(map, marker1, marker2, data);
 
 });

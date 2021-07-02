@@ -92,23 +92,51 @@ export function openStreetMap() {
     var element = document.getElementById('mapdiv');
 
     // Height has to be set. You can do this in CSS too.
-    element.style = 'height:300px;';
+    element.style = 'height:380px;';
 
     // Create Leaflet map on map element.
     var map = L.map(element);
 
     // Add OSM tile layer to the Leaflet map.
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+    // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    //     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+
+    // Add OSM tile layer to the Leaflet map.
+    L.tileLayer('../maps/{z}/{x}/{y}.png').addTo(map);
 
     // Target's GPS coordinates.
-    var target = L.latLng('47.50737', '19.04611');
+    var target = L.latLng(33.9166568, -118.333609);
+    // var target = L.latLng(lat, lon);
 
     // Set map's center to target with zoom 14.
-    map.setView(target, 14);
+    // map.setView(target, 14);
+
+    map.setView(target,14);
 
     // Place a marker on the same location.
-    L.marker(target).addTo(map);
+    var marker_flight = L.marker(target).addTo(map);
+    var marker_ground = L.marker(target).addTo(map);
+
+    return [map, marker_flight, marker_ground];
+
+}
+
+export function updateMap(map, marker_flight, marker_ground, data) {
+    // marker.setLatLong
+    var newLatLng_flight = new L.LatLng(data.Latitude, data.Longitude);
+    var newLatLng_ground = new L.LatLng(data.groundLatitude, data.groundLongitude);
+    map.setView(newLatLng_flight);
+    marker_flight.setLatLng(newLatLng_flight); 
+    marker_ground.setLatLng(newLatLng_ground); 
+
+    console.log("updating the Marker!")
+
+    // if (theMarker != undefined) {
+    //     map.removeLayer(theMarker);
+    // };
+
+    // //Add a marker to show where you clicked.
+    // theMarker = L.marker([data.Latitude, data.Longitude]).addTo(map);
 
 }
