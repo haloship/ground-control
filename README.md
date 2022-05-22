@@ -64,7 +64,7 @@ Run the following commands in the PlatformIO terminal in VScode. The microcontro
 
 ```bash 
 cd ground-software 
-python interface.py -uf
+python interface.py -uh
 ```
 
 ### Start the Dashboard
