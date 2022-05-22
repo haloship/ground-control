@@ -42,8 +42,8 @@ cd Dashboard
 
 #install appropriate node related libraries
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-nvm install stable --latest-npm
-nvm alias default stable
+
+nvm install 16
 
 #Make sure the node version is above 10.0.0
 node --version
@@ -51,6 +51,9 @@ node --version
 #install dependencies
 npm install 
 
+#ignore below
+nvm install stable --latest-npm see
+nvm alias default stable
 ```
 
 
