@@ -103,10 +103,17 @@ export function openStreetMap() {
     // }).addTo(map);
 
     // Add OSM tile layer to the Leaflet map.
-    L.tileLayer('../maps/maps_la/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer(
+        "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+        {
+          maxZoom: 20,
+          attribution:
+            '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        }
+      ).addTo(map);
 
     // Target's GPS coordinates.
-    var target = L.latLng(33.9166568, -118.333609);
+    var target = L.latLng(24.5239, 54.4346);
     // var target = L.latLng(lat, lon);
 
     // Set map's center to target with zoom 14.

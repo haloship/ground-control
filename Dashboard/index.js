@@ -30,7 +30,7 @@ import SerialPort from 'serialport';
 // const { parsePacket } = require('./scripts/parse');
 const Readline = SerialPort.parsers.Readline;
 // const port = new SerialPort('/dev/ttyACM0', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0.
-const port = new SerialPort('/dev/tty.usbmodem355D357033391', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
+const port = new SerialPort('/dev/tty.usbmodem3558357033391', { baudRate: 115200 }); //Connect serial port to port /dev/ttyACM0. 
 const parser = new Readline({ delimiter: '\r\n' })
 port.pipe(parser);
 
